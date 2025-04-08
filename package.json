@@ -1,0 +1,29 @@
+{
+  "name": "shortcut-mcp",
+  "version": "0.1.0",
+  "description": "MCP Server for interacting with Shortcut",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "shortcut"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/dotenv": "^8.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

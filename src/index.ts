@@ -4,7 +4,6 @@ import { server } from "./server.js";
 async function main() {
   console.error("Starting Shortcut MCP Server via stdio...");
   
-  // Connect the server to stdio transport
   const transport = new StdioServerTransport();
   await server.connect(transport);
 

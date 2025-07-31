@@ -6,7 +6,8 @@ import {
   getEngineeringWorkflows,
   updateStoryWorkflowState,
   createStory,
-  getAllWorkflows
+  getAllWorkflows,
+  getStoryById
 } from "./shortcut/client.js";
 import type { ShortcutStory } from "./shortcut/types.js";
 
@@ -43,6 +44,14 @@ const server = new McpServer({
       "getStoriesForCurrentIteration": {
         description: "Get all stories in the current iteration",
         example: {}
+      },
+      "getStoriesForUser": {
+        description: "Get all stories assigned to a user",
+        example: { userId: 123, storyName: "Implement login page" }
+      },
+      "getStoryById": {
+        description: "Get a story by its ID",
+        example: { storyId: 123 }
       }
     },
     prompts: {
@@ -451,6 +460,34 @@ server.tool(
     }
   }
 );
+
+server.tool(
+  "getStoryById",
+  {
+    storyId: z.number().describe("The ID of the story to get")
+  },
+  async (args) => {
+    try {
+      const stories = await getStoryById(args.storyId);
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(stories, null, 2)
+        }]
+      };
+    } catch (error: unknown) {
+      console.error("Error fetching story by ID:", error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error fetching story by ID';
+      return {
+        content: [{
+          type: "text",
+          text: `Error: Failed to fetch story by ID - ${errorMessage}`
+        }],
+        isError: true
+      };
+    }
+  }
+)
 
 server.prompt(
   "createFeatureStory",

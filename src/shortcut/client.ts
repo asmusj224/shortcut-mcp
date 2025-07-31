@@ -197,11 +197,16 @@ async function getAllWorkflows(): Promise<ShortcutWorkflow[]> {
   return shortcutFetch<ShortcutWorkflow[]>("/workflows");
 }
 
+async function getStoryById(storyId: number): Promise<ShortcutStory> {
+  return shortcutFetch<ShortcutStory>(`/stories/${storyId}`);
+}
+
 export {
     getCurrentUserWithGroups,
     getCurrentIterationStories,
     getEngineeringWorkflows,
     updateStoryWorkflowState,
     createStory,
-    getAllWorkflows
+    getAllWorkflows,
+    getStoryById
 }; 
